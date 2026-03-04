@@ -140,12 +140,20 @@ $SkillZip = Join-Path $ScriptDir "GIS-ACCESSIBILITY-SKILL.zip"
 if (Test-Path $SkillZip) {
     $TmpDir = Join-Path $env:TEMP "gis-skill-tmp"
     Expand-Archive -Path $SkillZip -DestinationPath $TmpDir -Force
+
+    # Claude Code CLI용: ~/.claude/commands/ 에 SKILL.md 복사
     New-Item -ItemType Directory -Force -Path $CommandsDir | Out-Null
     Copy-Item (Join-Path $TmpDir "GIS-ACCESSIBILITY-SKILL\SKILL.md") `
               (Join-Path $CommandsDir "gis-accessibility.md") -Force
+    Write-Host "   [Claude Code] Skill 설치됨: $CommandsDir\gis-accessibility.md"
+    Write-Host "   → Claude Code에서 /gis-accessibility 로 사용하세요."
+
+    # Claude Desktop용: .skill 파일을 접근하기 쉬운 위치에 복사
+    Copy-Item (Join-Path $TmpDir "GIS-ACCESSIBILITY-SKILL\gis-accessibility.skill") `
+              (Join-Path $ScriptDir "gis-accessibility.skill") -Force
+    Write-Host "   [Claude Desktop] Skill 파일 준비됨: $ScriptDir\gis-accessibility.skill"
+
     Remove-Item $TmpDir -Recurse -Force
-    Write-Host "   Skill 설치됨: $CommandsDir\gis-accessibility.md"
-    Write-Host "   Claude Code에서 /gis-accessibility 로 사용하세요."
 }
 
 # ------------------------------------------------------------------------------
@@ -158,7 +166,9 @@ Write-Host "======================================================"
 Write-Host ""
 Write-Host "  다음 단계:"
 Write-Host "  1. Claude Desktop을 재시작하세요."
-Write-Host "  2. Claude에서 '서울시 소아과 접근성 분석해줘' 라고 물어보세요."
+Write-Host "  2. [Claude Desktop] 채팅창에 gis-accessibility.skill 파일을 업로드하면 Skill이 활성화됩니다."
+Write-Host "     파일 위치: $ScriptDir\gis-accessibility.skill"
+Write-Host "  3. [Claude Code CLI] /gis-accessibility 명령어로 Skill을 바로 사용할 수 있습니다."
 Write-Host ""
 Write-Host "  결과 파일 저장 위치: $ScriptDir\_results\"
 Write-Host ""

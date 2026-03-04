@@ -143,14 +143,20 @@ fi
 
 # Skill 설치
 if [ -f "$SCRIPT_DIR/GIS-ACCESSIBILITY-SKILL.zip" ]; then
-    # zip에서 SKILL.md 추출
     TMP_DIR=$(mktemp -d)
     unzip -q "$SCRIPT_DIR/GIS-ACCESSIBILITY-SKILL.zip" -d "$TMP_DIR"
+
+    # Claude Code CLI용: ~/.claude/commands/ 에 SKILL.md 복사
     mkdir -p "$COMMANDS_DIR"
     cp "$TMP_DIR/GIS-ACCESSIBILITY-SKILL/SKILL.md" "$COMMANDS_DIR/gis-accessibility.md"
+    echo "   [Claude Code] Skill 설치됨: $COMMANDS_DIR/gis-accessibility.md"
+    echo "   → Claude Code에서 /gis-accessibility 로 사용하세요."
+
+    # Claude Desktop용: .skill 파일을 접근하기 쉬운 위치에 복사
+    cp "$TMP_DIR/GIS-ACCESSIBILITY-SKILL/gis-accessibility.skill" "$SCRIPT_DIR/gis-accessibility.skill"
+    echo "   [Claude Desktop] Skill 파일 준비됨: $SCRIPT_DIR/gis-accessibility.skill"
+
     rm -rf "$TMP_DIR"
-    echo "   Skill이 설치되었습니다: $COMMANDS_DIR/gis-accessibility.md"
-    echo "   Claude Code에서 /gis-accessibility 로 사용하세요."
 fi
 
 # ------------------------------------------------------------------------------
@@ -163,7 +169,9 @@ echo "======================================================"
 echo ""
 echo "  다음 단계:"
 echo "  1. Claude Desktop을 재시작하세요."
-echo "  2. Claude에서 '서울시 소아과 접근성 분석해줘' 라고 물어보세요."
+echo "  2. [Claude Desktop] 채팅창에 gis-accessibility.skill 파일을 업로드하면 Skill이 활성화됩니다."
+echo "     파일 위치: $SCRIPT_DIR/gis-accessibility.skill"
+echo "  3. [Claude Code CLI] /gis-accessibility 명령어로 Skill을 바로 사용할 수 있습니다."
 echo ""
 echo "  결과 파일 저장 위치: $SCRIPT_DIR/_results/"
 echo ""

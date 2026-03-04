@@ -73,11 +73,20 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 1. Python 가상환경(`.venv`) 생성 및 패키지 설치
 2. Claude Desktop 설정 파일에 MCP 서버 등록
 3. Claude Code CLI에 MCP 서버 등록
-4. Claude Code Skill(`/gis-accessibility`) 설치
+4. Skill 파일 준비 (`gis-accessibility.skill`, `~/.claude/commands/gis-accessibility.md`)
 
-### 4. Claude Desktop 재시작
+### 4. Claude Desktop 재시작 및 Skill 활성화
 
 설치 후 Claude Desktop을 완전히 종료하고 다시 실행하세요.
+
+**Skill 활성화 방법 (환경별 상이):**
+
+| 환경 | 방법 |
+|------|------|
+| **Claude Desktop** | 채팅창에 `gis-accessibility.skill` 파일을 업로드 |
+| **Claude Code CLI** | 터미널에서 `claude` 실행 → `/gis-accessibility` 입력 |
+
+> `gis-accessibility.skill` 파일은 설치 후 저장소 폴더 안에 생성됩니다.
 
 ---
 
