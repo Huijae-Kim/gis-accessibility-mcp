@@ -34,27 +34,7 @@ git clone https://github.com/Huijae-Kim/gis-accessibility-mcp.git
 cd gis-accessibility-mcp
 ```
 
-### 2. 데이터 다운로드
-
-`_data/` 폴더에 필요한 데이터 파일(약 260MB)을 받습니다.
-
-**방법 A: 자동 다운로드 (권장)**
-
-```bash
-python download_data.py
-```
-
-**방법 B: 수동 다운로드**
-
-[여기]([https://drive.google.com/drive/folders/YOUR_FOLDER_LINK](https://drive.google.com/file/d/1yQ97HCBKR1W_G_R2-a2iP_O4jcWTNsrz/view?usp=sharing))에서 `data.zip`을 다운받아 압축 해제하면 `_data/` 폴더가 생성됩니다. `_data/` 폴더를 `git-accessibility` 폴더로 이동해주세요.
-
-> **필요한 파일 목록:**
-> - `인구_전처리.csv`
-> - `전국 병의원 현황_전처리.csv`
-> - `BND_ADM_DONG_PG.shp` (및 관련 파일)
-> - `BND_SIGUNGU_PG.shp` (및 관련 파일)
-
-### 3. 한 번에 설치
+### 2. 한 번에 설치
 
 **Mac / Linux:**
 ```bash
@@ -71,11 +51,12 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 이 스크립트가 자동으로:
 1. Python 가상환경(`.venv`) 생성 및 패키지 설치
-2. Claude Desktop 설정 파일에 MCP 서버 등록
-3. Claude Code CLI에 MCP 서버 등록
-4. Skill 파일 준비 (`gis-accessibility.skill`, `~/.claude/commands/gis-accessibility.md`)
+2. 데이터 다운로드
+3. Claude Desktop 설정 파일에 MCP 서버 등록
+4. Claude Code CLI에 MCP 서버 등록
+5. Skill 파일 준비 (`gis-accessibility.skill`, `~/.claude/commands/gis-accessibility.md`)
 
-### 4. Claude Desktop 재시작 및 Skill 활성화
+### 3. Claude Desktop 재시작 및 Skill 활성화
 
 설치 후 Claude Desktop을 완전히 종료하고 다시 실행하세요.
 
@@ -97,6 +78,26 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```bash
 pip install -r requirements.txt
 ```
+
+### 데이터 다운로드
+
+`_data/` 폴더에 필요한 데이터 파일(약 260MB)을 받습니다.
+
+**방법 A: 자동 다운로드 (권장)**
+
+```bash
+python download_data.py
+```
+
+**방법 B: 수동 다운로드**
+
+[여기]([https://drive.google.com/drive/folders/YOUR_FOLDER_LINK](https://drive.google.com/file/d/1yQ97HCBKR1W_G_R2-a2iP_O4jcWTNsrz/view?usp=sharing))에서 `data.zip`을 다운받아 압축 해제하면 `_data/` 폴더가 생성됩니다. `_data/` 폴더를 `git-accessibility` 폴더로 이동해주세요.
+
+> **필요한 파일 목록:**
+> - `POPULATION_DONG_FINAL.csv`
+> - `HOSPITALS_FINAL.csv`
+> - `BND_ADM_DONG_PG.shp` (및 관련 파일)
+> - `BND_SIGUNGU_PG.shp` (및 관련 파일)
 
 ### Claude Desktop MCP 수동 등록
 
