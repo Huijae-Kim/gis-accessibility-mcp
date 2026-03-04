@@ -1,41 +1,6 @@
 """
 gis_analysis_v7.py
 
-Changes from gis_analysis_v6.py:
-- [CRITICAL] Strengthened confirmation guard to prevent Claude from bypassing the
-  wizard flow and running analysis immediately without user confirmation:
-  1. run() docstring now contains explicit HARD STOP instructions so Claude
-     never calls run(confirm=True) without user approval.
-  2. run() method parameter default changed from "2SFCA" to None — Claude is
-     forced to go through wizard_build_job to pick a metric, not guess.
-  3. run() now rejects calls where method is None (missing parameter error).
-  4. run_job() now always forces confirm=False on the first call and requires
-     the user to explicitly re-invoke with confirm=True — it no longer blindly
-     forwards the confirm flag from the job JSON.
-  5. wizard_build_job() docstring reinforced to instruct Claude to ALWAYS show
-     the PARAM_CONFIRM_REQUIRED payload to the user and wait for explicit
-     approval before calling finalize=True.
-  6. _format_confirm_prompt() output now explicitly tells Claude (in ALL-CAPS)
-     not to call run(confirm=True) until the user types a confirmation message.
-
-Changes from gis_analysis_v3.py (inherited from v4-v6):
-- load_data now returns shapefiles as outputs:
-  - shp_unit: the analysis unit boundary (e.g., 읍면동/동) after join/filter
-  - shp_boundary (optional): higher-level boundary (e.g., 시군구) for visualization
-- Unified distance decay/weight concept under `distance_decay_function` across the codebase.
-  - Backward-compatible alias: `decay_function` is still accepted but deprecated.
-- Fixed bbox cropping bug: visualization/overlay no longer uses `threshold_km` to expand bounds.
-  Instead, bounds are padded by 10% in both x/y directions (CRS unit = meters in EPSG:5179).
-- For distance_decay_function='step', `distance_bands_json` is now enforced and applied
-  consistently to both GRAVITY and E2SFCA.
-- load_data now returns shapefiles as outputs:
-  - shp_unit: the analysis unit boundary (e.g., 읍면동/동) after join/filter
-  - shp_boundary (optional): higher-level boundary (e.g., 시군구) for visualization
-- Unified distance decay/weight concept under `distance_decay_function` across the codebase.
-  - Backward-compatible alias: `decay_function` is still accepted but deprecated.
-- Fixed bbox cropping bug: visualization/overlay no longer uses `threshold_km` to expand bounds.
-  Instead, bounds are padded by 10% in both x/y directions (CRS unit = meters in EPSG:5179).
-
 Supported distance_decay_function values (case-insensitive):
   "binary"      — 1 if d <= threshold, else 0  (default for 2SFCA)
   "step"        — piecewise constant; requires distance_bands_json
@@ -111,8 +76,8 @@ plt.rcParams["axes.unicode_minus"] = False
 # =============================================================================
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_DIR = os.environ.get("ACCESS_DATA_DIR", os.path.join(_SCRIPT_DIR, "_data"))
-FILE_POP = "인구_전처리.csv"
-FILE_SUPPLY = "전국 병의원 현황_전처리.csv"
+FILE_POP = "POPULATION_DONG_FINAL.csv"
+FILE_SUPPLY = "HOSPITALS_FINAL.csv"
 FILE_SHP_UNIT = "BND_ADM_DONG_PG.shp"
 FILE_SHP_BOUNDARY = "BND_SIGUNGU_PG.shp"
 
@@ -148,8 +113,8 @@ class DataConfig:
       - optional boundary shapefile for overlay (file_shp_boundary)
     """
     data_dir: str
-    file_pop: str = "인구_전처리.csv"
-    file_supply: str = "전국 병의원 현황_전처리.csv"
+    file_pop: str = "POPULATION_DONG_FINAL.csv"
+    file_supply: str = "HOSPITALS_FINAL.csv"
     file_shp_unit: str = "BND_ADM_DONG_PG.shp"
     file_shp_boundary: Optional[str] = "BND_SIGUNGU_PG.shp"
 
