@@ -30,8 +30,8 @@
 ### 1. 저장소 클론
 
 ```bash
-git clone https://github.com/Huijae-Kim/gis-accessibility.git
-cd gis-accessibility
+git clone https://github.com/Huijae-Kim/gis-accessibility-mcp.git
+cd gis-accessibility-mcp
 ```
 
 ### 2. 데이터 다운로드
