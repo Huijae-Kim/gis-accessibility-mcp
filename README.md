@@ -40,15 +40,13 @@ cd gis-accessibility
 
 **방법 A: 자동 다운로드 (권장)**
 
-`download_data.py` 파일을 열고 `GDRIVE_FILE_ID` 값을 실제 공유 ID로 수정한 뒤:
-
 ```bash
 python download_data.py
 ```
 
 **방법 B: 수동 다운로드**
 
-[여기](https://drive.google.com/drive/folders/YOUR_FOLDER_LINK)에서 `data.zip`을 다운받아 압축 해제하면 `_data/` 폴더가 생성됩니다.
+[여기]([https://drive.google.com/drive/folders/YOUR_FOLDER_LINK](https://drive.google.com/file/d/1yQ97HCBKR1W_G_R2-a2iP_O4jcWTNsrz/view?usp=sharing))에서 `data.zip`을 다운받아 압축 해제하면 `_data/` 폴더가 생성됩니다. `_data/` 폴더를 `git-accessibility` 폴더로 이동해주세요.
 
 > **필요한 파일 목록:**
 > - `인구_전처리.csv`
@@ -176,10 +174,24 @@ gis-accessibility/
 
 ## 관련 논문
 
-Ahn et al. (2026). *A Conceptual Framework for Spatial Accessibility*. (preprint)
+Ahn et al. (2026). *A Conceptual Framework for Spatial Accessibility: Alighning Metrics with Urban Service Determinants*. (preprint)
 
 ---
 
 ## 라이선스
 
-MIT License
+This project is licensed under the [CC BY-NC 4.0 License](https://creativecommons.org/licenses/by-nc/4.0/).  
+You are free to use and modify this work for **non-commercial purposes** with proper attribution.  
+Commercial use is **prohibited** without prior written permission.
+
+이 프로젝트는 [CC BY-NC 4.0 라이선스](https://creativecommons.org/licenses/by-nc/4.0/) 하에 배포됩니다.  
+출처를 밝히는 경우 **비상업적 목적**에 한해 자유롭게 사용 및 수정 가능합니다.  
+**상업적 이용은 사전 서면 허가 없이 금지**됩니다.
+
+---
+
+## 사사
+
+This research was supported by the **Center for Advanced Urban Systems (CAUS)** of Korea Advanced Institute of Science and Technology (KAIST), funded by **GS E&C**.
+본 연구는 **GS건설**이 지원하는 한국과학기술원(KAIST) **CAUS**의 지원을 받아 수행되었습니다.
+
