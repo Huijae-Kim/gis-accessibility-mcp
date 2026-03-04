@@ -83,10 +83,8 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 | 환경 | 방법 |
 |------|------|
-| **Claude Desktop** | 채팅창에 `gis-accessibility.skill` 파일을 업로드 |
-| **Claude Code CLI** | 터미널에서 `claude` 실행 → `/gis-accessibility` 입력 |
-
-> `gis-accessibility.skill` 파일은 설치 후 저장소 폴더 안에 생성됩니다.
+| **Claude Desktop** | 상단 메뉴 → 사용자지정 → 스킬 → **+** → 스킬 업로드 → `GIS-ACCESSIBILITY-SKILL.zip` 선택 |
+| **Claude Code CLI** | 터미널에서 `claude` 실행 → `/gis-accessibility` 입력 (자동 설치됨) |
 
 ---
 
