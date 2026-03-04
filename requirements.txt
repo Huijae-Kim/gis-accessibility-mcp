@@ -6,3 +6,4 @@ shapely
 scipy
 mcp[cli]
 gdown
+tabulate
