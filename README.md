@@ -193,5 +193,6 @@ Commercial use is **prohibited** without prior written permission.
 ## 사사
 
 This research was supported by the **Center for Advanced Urban Systems (CAUS)** of Korea Advanced Institute of Science and Technology (KAIST), funded by **GS E&C**.
+
 본 연구는 **GS건설**이 지원하는 한국과학기술원(KAIST) **CAUS**의 지원을 받아 수행되었습니다.
 
