@@ -1,0 +1,25 @@
+# 데이터 폴더 (용량이 크므로 Git에 포함하지 않음)
+_data/
+
+# 결과물
+_results/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# Claude Code 로컬 설정
+.claude/
+
+# 임시 파일
+data.zip
+*.tmp
