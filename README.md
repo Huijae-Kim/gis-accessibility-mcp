@@ -161,8 +161,8 @@ gis-accessibility/
 ├── install.sh                 # 원클릭 설치 스크립트
 ├── GIS-ACCESSIBILITY-SKILL.zip # Claude Code Skill 파일
 ├── _data/                     # 데이터 폴더 (Git 제외, 별도 다운로드)
-│   ├── 인구_전처리.csv
-│   ├── 전국 병의원 현황_전처리.csv
+│   ├── POPULATION_DONG_FINAL.csv
+│   ├── HOSPITALS_FINAL.csv
 │   ├── BND_ADM_DONG_PG.shp
 │   └── BND_SIGUNGU_PG.shp
 └── _results/                  # 분석 결과 저장 (자동 생성)
