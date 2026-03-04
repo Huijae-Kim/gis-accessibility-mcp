@@ -91,7 +91,7 @@ python download_data.py
 
 **방법 B: 수동 다운로드**
 
-[여기]([https://drive.google.com/drive/folders/YOUR_FOLDER_LINK](https://drive.google.com/file/d/1yQ97HCBKR1W_G_R2-a2iP_O4jcWTNsrz/view?usp=sharing))에서 `data.zip`을 다운받아 압축 해제하면 `_data/` 폴더가 생성됩니다. `_data/` 폴더를 `git-accessibility` 폴더로 이동해주세요.
+[여기]([https://drive.google.com/file/d/1yQ97HCBKR1W_G_R2-a2iP_O4jcWTNsrz/view?usp=sharing])에서 `data.zip`을 다운받아 압축 해제하면 `_data/` 폴더가 생성됩니다. `_data/` 폴더를 `git-accessibility` 폴더로 이동해주세요.
 
 > **필요한 파일 목록:**
 > - `POPULATION_DONG_FINAL.csv`
