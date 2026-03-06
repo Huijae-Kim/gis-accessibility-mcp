@@ -68,7 +68,7 @@ Write-Host ""
 Write-Host "[3/5] 데이터 확인..."
 
 $DataDir = Join-Path $ScriptDir "_data"
-$RequiredFiles = @("인구_전처리.csv", "전국 병의원 현황_전처리.csv", "BND_ADM_DONG_PG.shp", "BND_SIGUNGU_PG.shp")
+$RequiredFiles = @("POPULATION_DONG_FINAL.csv", "HOSPITALS_FINAL.csv", "BND_ADM_DONG_PG.shp", "BND_SIGUNGU_PG.shp")
 $Missing = $false
 
 foreach ($f in $RequiredFiles) {

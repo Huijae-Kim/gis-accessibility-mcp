@@ -8,15 +8,17 @@
 
 ## 지원 분석 지표
 
-| 방법 | 설명 |
-|------|------|
-| `MIN` | 최근접 시설까지의 최소 거리 |
-| `K_AVG` | k개 최근접 시설까지의 평균 거리 |
-| `COM` | 누적 기회 지표 (threshold 내 시설 수) |
-| `GRAVITY` | 중력 모형 기반 접근성 |
-| `2SFCA` | 두 단계 부동 집수 구역법 |
-| `E2SFCA` | 향상된 2SFCA (거리 감쇠 적용) |
-| `PPR` | 인구 대비 공급자 비율 |
+| 방법 | 설명 | 논문 분류 |
+|------|------|-----------|
+| `MIN` | 최근접 시설까지의 최소 거리 | Proximity-based |
+| `K_AVG` | k개 최근접 시설까지의 평균 거리 | Proximity-based |
+| `COM` | 누적 기회 지표 (threshold 내 시설 수) | Opportunity-based (threshold) |
+| `GRAVITY` | 중력 모형 기반 접근성 | Opportunity-based (distance-decay) |
+| `PPR` | 공급자 대비 인구 비율 (비공간 기준선) | Opportunity-based (non-spatial baseline) |
+| `2SFCA` | 두 단계 부동 집수 구역법 | Competition-adjusted |
+| `E2SFCA` | 향상된 2SFCA (거리 감쇠 적용) | Competition-adjusted |
+
+> 지표 선택 기준은 [Ahn et al. (2026)](#관련-논문) 논문 및 `GIS-ACCESSIBILITY-SKILL.zip` 내 `references/methodology.md` 참조.
 
 ---
 
@@ -24,24 +26,61 @@
 
 ### 0. 사전 요구사항
 
-- **Python 3.9 이상** ([다운로드](https://www.python.org/downloads/))
-- **Claude Desktop** ([다운로드](https://claude.ai/download)) 또는 **Claude Code CLI** (`npm install -g @anthropic-ai/claude-code`)
+아래 소프트웨어가 모두 설치되어 있어야 합니다.
+
+| 소프트웨어 | 설명 | 다운로드 |
+|---|---|---|
+| **Python 3.9 이상** | 분석 엔진 | [python.org](https://www.python.org/downloads/) |
+| **Git** | 저장소 클론 | [git-scm.com](https://git-scm.com/downloads) |
+| **Claude Desktop** | Claude GUI 클라이언트 *(둘 중 하나)* | [claude.ai/download](https://claude.ai/download) |
+| **Claude Code CLI** | 터미널 Claude 클라이언트 *(둘 중 하나)* | `npm install -g @anthropic-ai/claude-code` |
+
+> Claude Desktop과 Claude Code CLI 중 **하나만** 있어도 됩니다.
+
+**Git 설치 확인 방법:**
+
+```bash
+git --version
+# 출력 예: git version 2.x.x
+```
+
+Git이 없다면 [git-scm.com/downloads](https://git-scm.com/downloads) 에서 설치 후 터미널(또는 PowerShell)을 **새로 열어** 다시 확인하세요.
+
+---
 
 ### 1. 저장소 클론
+
+**Mac / Linux — Terminal에서:**
 
 ```bash
 git clone https://github.com/Huijae-Kim/gis-accessibility-mcp.git
 cd gis-accessibility-mcp
 ```
 
+**Windows — PowerShell에서:**
+
+> ⚠️ Windows 사용자는 이후 `install.ps1` 실행도 **PowerShell**에서 진행해야 합니다. 처음부터 PowerShell을 사용하세요.
+
+```powershell
+git clone https://github.com/Huijae-Kim/gis-accessibility-mcp.git
+cd gis-accessibility-mcp
+```
+
+> Git이 설치되어 있으면 PowerShell에서 바로 `git` 명령을 사용할 수 있습니다.
+> 설치 직후에는 PowerShell을 **새로 열어야** 명령이 인식됩니다.
+
+---
+
 ### 2. 한 번에 설치
 
 **Mac / Linux:**
+
 ```bash
 bash install.sh
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 # 최초 1회만 실행 (스크립트 실행 권한 허용)
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
@@ -54,7 +93,9 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 2. 데이터 다운로드
 3. Claude Desktop 설정 파일에 MCP 서버 등록
 4. Claude Code CLI에 MCP 서버 등록
-5. Skill 파일 준비 (`gis-accessibility.skill`, `~/.claude/commands/gis-accessibility.md`)
+5. Skill 파일 준비 (`GIS-ACCESSIBILITY-SKILL.zip`, `~/.claude/commands/gis-accessibility.md`)
+
+---
 
 ### 3. Claude Desktop 재시작 및 Skill 활성화
 
@@ -71,7 +112,7 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 ## 수동 설치 (선택 사항)
 
-자동 설치(`install.sh`)가 실패하거나 직접 설정하고 싶은 경우:
+자동 설치(`install.sh` / `install.ps1`)가 실패하거나 직접 설정하고 싶은 경우:
 
 ### 패키지 설치
 
@@ -91,7 +132,7 @@ python download_data.py
 
 **방법 B: 수동 다운로드**
 
-[여기](https://drive.google.com/file/d/1yQ97HCBKR1W_G_R2-a2iP_O4jcWTNsrz/view?usp=sharing)에서 `data.zip`을 다운받아 압축 해제하면 `_data/` 폴더가 생성됩니다. `_data/` 폴더를 `git-accessibility` 폴더로 이동해주세요.
+[여기](https://drive.google.com/file/d/1yQ97HCBKR1W_G_R2-a2iP_O4jcWTNsrz/view?usp=sharing)에서 `data.zip`을 다운받아 압축 해제하면 `_data/` 폴더가 생성됩니다. `_data/` 폴더를 `gis-accessibility` 폴더로 이동해주세요.
 
 > **필요한 파일 목록:**
 > - `POPULATION_DONG_FINAL.csv`
@@ -101,7 +142,11 @@ python download_data.py
 
 ### Claude Desktop MCP 수동 등록
 
-`~/Library/Application Support/Claude/claude_desktop_config.json` 파일을 열고 아래 내용을 추가:
+설정 파일 위치:
+- **Mac:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+
+아래 내용을 추가하세요:
 
 ```json
 {
@@ -114,7 +159,7 @@ python download_data.py
 }
 ```
 
-> Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+> Windows 경로 예시: `"command": "C:\\Users\\사용자명\\gis-accessibility\\.venv\\Scripts\\python.exe"`
 
 ### Claude Code CLI MCP 수동 등록
 
@@ -124,9 +169,22 @@ claude mcp add gis-accessibility /절대경로/.venv/bin/python3 /절대경로/g
 
 ### Skill 수동 설치
 
+**Mac / Linux:**
+
 ```bash
 mkdir -p ~/.claude/commands
 unzip -p GIS-ACCESSIBILITY-SKILL.zip "GIS-ACCESSIBILITY-SKILL/SKILL.md" > ~/.claude/commands/gis-accessibility.md
+```
+
+**Windows (PowerShell):**
+
+```powershell
+$dest = "$env:USERPROFILE\.claude\commands"
+New-Item -ItemType Directory -Force -Path $dest | Out-Null
+$tmp = "$env:TEMP\gis-skill-tmp"
+Expand-Archive -Path GIS-ACCESSIBILITY-SKILL.zip -DestinationPath $tmp -Force
+Copy-Item "$tmp\GIS-ACCESSIBILITY-SKILL\SKILL.md" "$dest\gis-accessibility.md" -Force
+Remove-Item $tmp -Recurse -Force
 ```
 
 ---
@@ -144,7 +202,7 @@ Claude Desktop 또는 Claude Code에서 자연어로 대화:
 ```
 
 ```
-대전광역시 내과 접근성을 지도로 보여줘
+대전광역시 내과 접근성을 PPR 지표로 빠르게 확인해줘
 ```
 
 결과 파일(지도 이미지, CSV)은 `_results/` 폴더에 저장됩니다.
@@ -155,17 +213,22 @@ Claude Desktop 또는 Claude Code에서 자연어로 대화:
 
 ```
 gis-accessibility/
-├── gis_analysis_v7.py        # MCP 서버 메인 코드
-├── requirements.txt           # Python 패키지 목록
-├── download_data.py           # 데이터 자동 다운로드 스크립트
-├── install.sh                 # 원클릭 설치 스크립트
-├── GIS-ACCESSIBILITY-SKILL.zip # Claude Code Skill 파일
-├── _data/                     # 데이터 폴더 (Git 제외, 별도 다운로드)
+├── gis_analysis_v7.py          # MCP 서버 메인 코드
+├── requirements.txt             # Python 패키지 목록
+├── download_data.py             # 데이터 자동 다운로드 스크립트
+├── install.sh                   # 원클릭 설치 스크립트 (Mac/Linux)
+├── install.ps1                  # 원클릭 설치 스크립트 (Windows PowerShell)
+├── GIS-ACCESSIBILITY-SKILL.zip  # Claude Skill 파일 (Desktop + Code)
+│   ├── SKILL.md                 #   Claude Code CLI용 slash command
+│   ├── gis-accessibility.skill  #   Claude Desktop용 skill 파일
+│   └── references/
+│       └── methodology.md       #   방법론 참고 자료
+├── _data/                       # 데이터 폴더 (Git 제외, 별도 다운로드)
 │   ├── POPULATION_DONG_FINAL.csv
 │   ├── HOSPITALS_FINAL.csv
 │   ├── BND_ADM_DONG_PG.shp
 │   └── BND_SIGUNGU_PG.shp
-└── _results/                  # 분석 결과 저장 (자동 생성)
+└── _results/                    # 분석 결과 저장 (자동 생성)
     ├── result_2SFCA_서울특별시_산부인과.png
     └── result_2SFCA_서울특별시_산부인과.csv
 ```
@@ -182,18 +245,18 @@ gis-accessibility/
 
 ## 관련 논문
 
-Ahn et al. (2026). *A Conceptual Framework for Spatial Accessibility: Alighning Metrics with Urban Service Determinants*. (preprint)
+Ahn, J., Kim, H., & Lee, T. (2026). *A Conceptual Framework for Spatial Accessibility: Aligning Metrics with Urban Service Determinants*. KAIST ISysE Preprint.
 
 ---
 
 ## 라이선스
 
-This project is licensed under the [CC BY-NC 4.0 License](https://creativecommons.org/licenses/by-nc/4.0/).  
-You are free to use and modify this work for **non-commercial purposes** with proper attribution.  
+This project is licensed under the [CC BY-NC 4.0 License](https://creativecommons.org/licenses/by-nc/4.0/).
+You are free to use and modify this work for **non-commercial purposes** with proper attribution.
 Commercial use is **prohibited** without prior written permission.
 
-이 프로젝트는 [CC BY-NC 4.0 라이선스](https://creativecommons.org/licenses/by-nc/4.0/) 하에 배포됩니다.  
-출처를 밝히는 경우 **비상업적 목적**에 한해 자유롭게 사용 및 수정 가능합니다.  
+이 프로젝트는 [CC BY-NC 4.0 라이선스](https://creativecommons.org/licenses/by-nc/4.0/) 하에 배포됩니다.
+출처를 밝히는 경우 **비상업적 목적**에 한해 자유롭게 사용 및 수정 가능합니다.
 **상업적 이용은 사전 서면 허가 없이 금지**됩니다.
 
 ---
@@ -203,4 +266,3 @@ Commercial use is **prohibited** without prior written permission.
 This research was supported by the **Center for Advanced Urban Systems (CAUS)** of Korea Advanced Institute of Science and Technology (KAIST), funded by **GS E&C**.
 
 본 연구는 **GS건설**이 지원하는 한국과학기술원(KAIST) **CAUS**의 지원을 받아 수행되었습니다.
-
