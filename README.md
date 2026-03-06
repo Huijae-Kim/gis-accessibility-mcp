@@ -245,7 +245,7 @@ gis-accessibility/
 
 ## 관련 논문
 
-Ahn, J., Kim, H., & Lee, T. (2026). *A Conceptual Framework for Spatial Accessibility: Aligning Metrics with Urban Service Determinants*. KAIST ISysE Preprint.
+Ahn, J., Kim, H., & Lee, T. (2026). *A Conceptual Framework for Spatial Accessibility: Aligning Metrics with Urban Service Determinants*. Preprint.
 
 ---
 
