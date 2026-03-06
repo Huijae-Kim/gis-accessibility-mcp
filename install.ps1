@@ -1,4 +1,4 @@
-﻿#requires -Version 5.1
+#requires -Version 5.1
 # =============================================================================
 # install.ps1 — GIS Accessibility MCP 설치 스크립트 (Windows용)
 # =============================================================================
@@ -188,8 +188,8 @@ Write-Host "[3/5] 데이터 확인..."
 
 $DataDir = Join-Path $ScriptDir "_data"
 $RequiredFiles = @(
-    "인구_전처리.csv",
-    "전국 병의원 현황_전처리.csv",
+    "POPULATION_DONG_FINAL.csv",
+    "HOSPITALS_FINAL.csv",
     "BND_ADM_DONG_PG.shp",
     "BND_SIGUNGU_PG.shp"
 )
