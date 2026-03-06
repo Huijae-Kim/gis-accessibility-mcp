@@ -32,7 +32,7 @@
 |---|---|---|
 | **Python 3.9 이상** | 분석 엔진 | [python.org](https://www.python.org/downloads/) |
 | **Git** | 저장소 클론 | [git-scm.com](https://git-scm.com/downloads) |
-| **Claude Desktop** | Claude GUI 클라이언트 *(둘 중 하나)* | [claude.ai/download](https://claude.ai/download) |
+| **Claude Desktop** | Claude GUI 클라이언트 *(추천, 둘 중 하나)* | [claude.ai/download](https://claude.ai/download) |
 | **Claude Code CLI** | 터미널 Claude 클라이언트 *(둘 중 하나)* | `npm install -g @anthropic-ai/claude-code` |
 
 > Claude Desktop과 Claude Code CLI 중 **하나만** 있어도 됩니다.
